@@ -20,7 +20,7 @@ import org.json.simple.parser.ParseException;
 
 public class banListener implements Listener {
     private Main plugin = Main.getPlugin(Main.class);
-    String API_URL = plugin.getConfig().getString("api");
+    private String API_URL = plugin.getConfig().getString("api");
     @EventHandler
     public void onPlayerPreLogin(AsyncPlayerPreLoginEvent evt) throws IOException, ParseException {
         UUID uuid = evt.getUniqueId();
