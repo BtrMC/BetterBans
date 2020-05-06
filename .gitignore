@@ -3,3 +3,4 @@ API/package-lock.json
 Plugin/.idea
 Plugin/Plugin.iml
 Plugin/src/test
+Plugin/target
