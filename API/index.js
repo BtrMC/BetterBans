@@ -1,5 +1,6 @@
 const fs = require('fs');
 const express = require('express');
+const sa = require('superagent');
 var app = express();
 
 app.use(express.json());
@@ -15,10 +16,15 @@ app.get('/get_users', (req, res) => {
     });
 });
 
-app.post('/add_user', (req, res) => {
+app.post('/add_user', async (req, res) => {
     var { name, uuid, reason, banned_by } = req.body;
     if(!name || !uuid || !reason || !banned_by) {
         return res.json({ error: "Missing arguments!"})
+    }
+    const { body } = await sa.get(`https://api.mojang.com/users/profiles/minecraft/${name}`);
+    if(!body.id) {
+        res.json({ error: "Invalid Username"});
+        return;
     }
     fs.readFile(__dirname + "/store/bans.json", 'utf8', (err, data) => {
         if (err){
