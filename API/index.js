@@ -12,7 +12,30 @@ app.get('/', (req, res) => {
 app.get('/get_users', (req, res) => {
     fs.readFile(__dirname + "/store/bans.json", 'utf8', function readFileCallback(err, data){
         d = JSON.parse(data);
-        res.json(d)
+        res.json(d);
+    });
+});
+app.get('/name/:name', (req, res) => {
+    var name = req.params.name;
+    fs.readFile(__dirname + "/store/bans.json", 'utf8', function readFileCallback(err, data){
+        d = JSON.parse(data);
+        for (var i = 0; i < d.length; i++){
+            if (d[i].banned_user == name){
+                res.json(d[i])
+            }
+        }
+    });
+});
+
+app.get('/uuid/:uuid', (req, res) => {
+    var uuid = req.params.uuid;
+    fs.readFile(__dirname + "/store/bans.json", 'utf8', function readFileCallback(err, data){
+        d = JSON.parse(data);
+        for (var i = 0; i < d.length; i++){
+            if (d[i].banned_uuid == uuid){
+                res.json(d[i])
+            }
+        }
     });
 });
 
