@@ -17,8 +17,8 @@ app.get('/get_users', (req, res) => {
 });
 
 app.post('/add_user', async (req, res) => {
-    var { name, uuid, reason, banned_by } = req.body;
-    if(!name || !uuid || !reason || !banned_by) {
+    var { name, reason, banned_by } = req.body;
+    if(!name || !reason || !banned_by) {
         return res.json({ error: "Missing arguments!"})
     }
     const { body } = await sa.get(`https://api.mojang.com/users/profiles/minecraft/${name}`);
@@ -26,6 +26,7 @@ app.post('/add_user', async (req, res) => {
         res.json({ error: "Invalid Username"});
         return;
     }
+    var uuid = body.id;
     fs.readFile(__dirname + "/store/bans.json", 'utf8', (err, data) => {
         if (err){
             console.log(err);
