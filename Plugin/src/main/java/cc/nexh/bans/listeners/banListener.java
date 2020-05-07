@@ -1,6 +1,5 @@
 package cc.nexh.bans.listeners;
 
-import org.bukkit.event.EventException;
 import org.bukkit.event.Listener;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
@@ -23,7 +22,7 @@ public class banListener implements Listener {
     private Main plugin = Main.getPlugin(Main.class);
     private String API_URL = plugin.getConfig().getString("api");
     @EventHandler
-    public void onPlayerPreLogin(AsyncPlayerPreLoginEvent evt) throws IOException, ParseException, EventException {
+    public void onPlayerPreLogin(AsyncPlayerPreLoginEvent evt) throws IOException, ParseException {
         UUID uuid = evt.getUniqueId();
         String name = evt.getName();
         URL url = new URL("http://localhost:4000/name/" + name);
