@@ -65,6 +65,15 @@ app.get('/ban', async (req, res) => {
         res.json({ success: "true"})
 });
 
+app.get('/remove/:user', async (req, res) => {
+    var name = req.params.user;
+    var data = fs.readFileSync(__dirname + '/store/bans.json');
+    var json = JSON.parse(data);
+    json = json.filter((json) => { return json.banned_user !== name });
+    fs.writeFileSync(__dirname + '/store/bans.json', JSON.stringify(json, null, 2));
+    res.json({ success: 'true' })
+});
+
 app.post('/add_user', async (req, res) => {
     var { name, reason, banned_by } = req.body;
     if(!name || !reason || !banned_by) {
