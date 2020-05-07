@@ -26,7 +26,9 @@ public class Ban implements CommandExecutor {
             try {
                 StringBuilder st = new StringBuilder();
                 for (int i = 1; i < args.length; i++) {
-                    st.append(args[i]).append(" ");
+                    if(i < args.length - 1) {
+                        st.append(args[i]).append(" ");
+                    }
                 }
                 if((st + "").equals("")) {
                     BanUtil.sendPl(player, BanUtil.cColor("&cUsage: /ban (player) (reason)"));
