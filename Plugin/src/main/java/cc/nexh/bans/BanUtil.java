@@ -43,7 +43,7 @@ public class BanUtil {
         }
     }
     public static void getBan(String name, String reason, String banner) throws IOException, ParseException {
-        URL url = new URL("http://localhost:4000/ban?name=" + name + "&reason=" + reason + "&banner=" + banner);
+        URL url = new URL("http://localhost:4000/ban?name=" + name + "&reason=" + reason.replace('&', '§').toString() + "&banner=" + banner);
         URLConnection connection = url.openConnection();
         HttpURLConnection httpConn = (HttpURLConnection) connection;
         BufferedReader in = new BufferedReader(new InputStreamReader(httpConn.getInputStream()));
