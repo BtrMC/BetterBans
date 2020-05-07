@@ -39,6 +39,32 @@ app.get('/uuid/:uuid', (req, res) => {
     });
 });
 
+app.get('/ban', async (req, res) => {
+    // var { name, reason, banned_by } = req.query;
+    var name = req.query.name;
+    var reason = req.query.reason;
+    var banned_by = req.query.banner;
+    if(!name || !reason || !banned_by) {
+        return res.json({ error: "Missing arguments!"})
+    }
+    const { body } = await sa.get(`https://api.mojang.com/users/profiles/minecraft/${name}`);
+    if(!body.id) {
+        res.json({ error: "Invalid Username"});
+        return;
+    }
+    var uuid = body.id;
+    fs.readFile(__dirname + "/store/bans.json", 'utf8', (err, data) => {
+        if (err){
+            console.log(err);
+        } else {
+        obj = JSON.parse(data);
+        obj.push({ banned_user: name, banned_uuid: uuid, ban_reason: reason, banned_by: banned_by }) //add some data
+        json = JSON.stringify(obj);
+        fs.writeFile(__dirname + "/store/bans.json", json, () => {});
+    }});
+        res.json({ success: "true"})
+});
+
 app.post('/add_user', async (req, res) => {
     var { name, reason, banned_by } = req.body;
     if(!name || !reason || !banned_by) {
@@ -60,6 +86,6 @@ app.post('/add_user', async (req, res) => {
         fs.writeFile(__dirname + "/store/bans.json", json, () => {});
     }});
         res.json({ success: "true"})
-})
+});
 
 app.listen(4000, console.log('http://localhost:4000'))
