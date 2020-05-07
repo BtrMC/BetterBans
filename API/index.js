@@ -21,9 +21,9 @@ app.get('/name/:name', (req, res) => {
         d = JSON.parse(data);
         for (var i = 0; i < d.length; i++){
             if (d[i].banned_user == name){
-                res.json(d[i])
+                return res.json(d[i])
             }
-        }
+        } res.json({ success: 'true'})
     });
 });
 

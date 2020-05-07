@@ -26,7 +26,7 @@ public class banListener implements Listener {
     public void onPlayerPreLogin(AsyncPlayerPreLoginEvent evt) throws IOException, ParseException, EventException {
         UUID uuid = evt.getUniqueId();
         String name = evt.getName();
-        URL url = new URL("http://localhost:4000/get_users");
+        URL url = new URL("http://localhost:4000/name/" + name);
         URLConnection connection = url.openConnection();
         HttpURLConnection httpConn = (HttpURLConnection) connection;
         BufferedReader in = new BufferedReader(new InputStreamReader(httpConn.getInputStream()));
@@ -40,8 +40,6 @@ public class banListener implements Listener {
         JSONObject json = (JSONObject) parser.parse(response.toString());
         System.out.println(json);
         if(json.get("banned_user").toString().contains(name)) {
-            evt.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, "§cYou are perm-banned!\n§bReason " + ChatColor.translateAlternateColorCodes('&', json.get("ban_reason").toString()));
-        } else if(json.get("banned_uuid").toString().contains(uuid.toString())) {
             evt.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, "§cYou are perm-banned!\n§bReason " + ChatColor.translateAlternateColorCodes('&', json.get("ban_reason").toString()));
         } else {
             evt.allow();
