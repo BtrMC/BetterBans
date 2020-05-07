@@ -18,12 +18,18 @@ public class Ban implements CommandExecutor {
             BanUtil.sendPl(player, BanUtil.cColor("&cYou don't have permission!"));
             return true;
         } else {
+            if(args.length < 1) {
+                BanUtil.sendPl(player, BanUtil.cColor("&cUsage: /kick (player) (reason)"));
+                return true;
+            }
             try {
                 StringBuilder st = new StringBuilder();
                 for (int i = 1; i < args.length; i++) {
                     st.append(args[i]).append(" ");
                 }
                 BanUtil.postBan(Bukkit.getPlayer(args[0]).getName(), st.toString(), player.getName());
+                Bukkit.getPlayer(args[0]).kickPlayer("§cYou are perm-banned!\n§bReason: " + BanUtil.cColor(st.toString()));
+                BanUtil.sendPl(player, BanUtil.cColor("&cYou have perm-banned &b" + Bukkit.getPlayer(args[0]).getName()));
             } catch (IOException e) {
                 e.printStackTrace();
             }

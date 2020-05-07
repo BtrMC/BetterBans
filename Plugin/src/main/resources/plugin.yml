@@ -1,3 +1,17 @@
 name: Bans
 version: 1.0.0
 main: cc.nexh.bans.Main
+commands:
+  ban:
+    aliases: [ bn ]
+    description: Ban someone
+  kick:
+    aliases: [ kk ]
+    description: Kick someone
+permissions:
+  bans.*:
+    description: Gives permission to all the bans commands.
+  bans.ban:
+    description: Gives permission to use the ban command.
+  bans.kick:
+    description: Gives permission to use the kick command.
