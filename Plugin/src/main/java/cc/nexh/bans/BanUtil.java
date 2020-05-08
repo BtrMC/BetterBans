@@ -32,6 +32,21 @@ public class BanUtil {
         JSONObject json = (JSONObject) parser.parse(response.toString());
         System.out.println(json);
     }
+    public static void rmBan(String name) throws IOException, ParseException {
+        URL url = new URL("http://localhost:4000/remove/" + name);
+        URLConnection connection = url.openConnection();
+        HttpURLConnection httpConn = (HttpURLConnection) connection;
+        BufferedReader in = new BufferedReader(new InputStreamReader(httpConn.getInputStream()));
+        String inputLine;
+        StringBuffer response = new StringBuffer();
+        while ((inputLine = in.readLine()) != null) {
+            response.append(inputLine);
+        }
+        in.close();
+        JSONParser parser = new JSONParser();
+        JSONObject json = (JSONObject) parser.parse(response.toString());
+        System.out.println(json);
+    }
     public static String cColor(String textToTranslate) { return ChatColor.translateAlternateColorCodes('&', textToTranslate); }
     public static void sendPl(Player player, String msg) {
         player.sendMessage(msg);
