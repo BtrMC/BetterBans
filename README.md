@@ -1,2 +1,2 @@
 # bans
-a ban plugin that uses an api
+minecraft ban plugin that uses an nodejs api to store bans
