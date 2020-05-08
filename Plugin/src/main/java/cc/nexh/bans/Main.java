@@ -10,7 +10,7 @@ public class Main extends JavaPlugin {
     public Main() {
     }
     public void onEnable() {
-        loadConfig();
+        // loadConfig();
         this.getCommand("ban").setExecutor(new Ban());
         this.getCommand("kick").setExecutor(new Kick());
         Bukkit.getServer().getPluginManager().registerEvents(new banListener(), this);
