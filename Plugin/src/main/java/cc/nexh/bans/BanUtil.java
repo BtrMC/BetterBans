@@ -17,31 +17,6 @@ import java.net.URL;
 import java.net.URLConnection;
 
 public class BanUtil {
-    /*
-     * Post a ban to the API.
-     */
-    public static void postBan(String username, String reason, String banner) throws IOException {
-        URL url = new URL("http://localhost:4000/add_user/");
-        HttpURLConnection con = (HttpURLConnection)url.openConnection();
-        con.setRequestMethod("POST");
-        con.setRequestProperty("Content-Type", "application/json; utf-8");
-        con.setRequestProperty("Accept", "application/json");
-        con.setDoOutput(true);
-        String jsonInputString = "{\"name\": \""+ username + "\", \"reason\": \"" + reason + "\", \"banned_by\": \"" + banner + "\"}";
-        try(OutputStream os = con.getOutputStream()) {
-            byte[] input = jsonInputString.getBytes("utf-8");
-            os.write(input, 0, input.length);
-        }
-        try(BufferedReader br = new BufferedReader(
-                new InputStreamReader(con.getInputStream(), "utf-8"))) {
-            StringBuilder response = new StringBuilder();
-            String responseLine = null;
-            while ((responseLine = br.readLine()) != null) {
-                response.append(responseLine.trim());
-            }
-            System.out.println(response.toString());
-        }
-    }
     public static void getBan(String name, String reason, String banner) throws IOException, ParseException {
         URL url = new URL("http://localhost:4000/ban?name=" + name + "&reason=" + reason.replace('&', '§').toString() + "&banner=" + banner);
         URLConnection connection = url.openConnection();
