@@ -5,7 +5,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 import cc.nexh.bans.Main;
 import org.json.simple.JSONObject;
-import org.bukkit.ChatColor;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -39,7 +38,7 @@ public class banListener implements Listener {
         JSONObject json = (JSONObject) parser.parse(response.toString());
         System.out.println(json);
         if(json.get("banned_user").toString().contains(name)) {
-            evt.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, "§cYou are perm-banned!\n§bReason: " + ChatColor.translateAlternateColorCodes('&', json.get("ban_reason").toString()));
+            evt.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, "§cYou are perm-banned!\n§bReason: " + json.get("ban_reason").toString());
         } else {
             evt.allow();
         }
