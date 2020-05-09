@@ -10,7 +10,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/get_users', (req, res) => {
-    fs.readFile(__dirname + "/store/bans.json", 'utf8', function readFileCallback(err, data){
+    fs.readFile(__dirname + "/store/bans.json", 'utf8', function readFileCallback(err, data) {
         d = JSON.parse(data);
         res.json(d);
     });
@@ -18,10 +18,10 @@ app.get('/get_users', (req, res) => {
 
 app.get('/name/:name', (req, res) => {
     var name = req.params.name;
-    fs.readFile(__dirname + "/store/bans.json", 'utf8', function readFileCallback(err, data){
+    fs.readFile(__dirname + "/store/bans.json", 'utf8', function readFileCallback(err, data) {
         d = JSON.parse(data);
-        for (var i = 0; i < d.length; i++){
-            if (d[i].banned_user == name){
+        for (var i = 0; i < d.length; i++) {
+            if (d[i].banned_user == name) {
                 return res.json(d[i]);
             }
         } res.json({ success: 'true'});
@@ -30,7 +30,7 @@ app.get('/name/:name', (req, res) => {
 
 app.get('/uuid/:uuid', (req, res) => {
     var uuid = req.params.uuid;
-    fs.readFile(__dirname + "/store/bans.json", 'utf8', function readFileCallback(err, data){
+    fs.readFile(__dirname + "/store/bans.json", 'utf8', function readFileCallback(err, data) {
         d = JSON.parse(data);
         for (var i = 0; i < d.length; i++){
             if (d[i].banned_uuid == uuid){
